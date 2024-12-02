@@ -1,7 +1,12 @@
 # AdventOfCode
 Advent of Code 
 
-To run: 
+To run part 1: 
 `
-pipenv run python3 2024/1/main.py
+pipenv run python3 2024/1/part1.py
+`
+
+To run part 2: 
+`
+pipenv run python3 2024/1/part2.py
 `
