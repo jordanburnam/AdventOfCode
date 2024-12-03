@@ -16,7 +16,7 @@ class ReactorReport:
     def __init__(self, line_number, numbers):
         self.line_number = line_number
         self.raw = numbers
-        self.delta = self._calculate_delta()
+        self.deltas = self._calculate_delta()
 
     def _calculate_delta(self):
         #Sanity check
@@ -31,14 +31,14 @@ class ReactorReport:
         return deltas
 
     def check_safety(self):
-        if not self.delta:
+        if not self.deltas:
             raise Exception(f"at line {self.line_number} there were no deltas so I died")
 
         # Check if all deltas are positive or all deltas are negative
-        is_monotonic = all(d > 0 for d in self.delta) or all(d < 0 for d in self.delta)
+        is_monotonic = all(d > 0 for d in self.deltas) or all(d < 0 for d in self.deltas)
         
         # Check if all deltas are within the range [-3, 3]
-        is_within_delta_range = all(abs(d) <= 3 for d in self.delta)
+        is_within_delta_range = all(abs(d) <= 3 for d in self.deltas)
         
         return is_monotonic and is_within_delta_range
 
