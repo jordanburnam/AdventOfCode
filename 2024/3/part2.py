@@ -41,50 +41,58 @@ dont_matches = re.finditer(dont_pattern, input_string)
 mul_matches = re.finditer(mul_pattern, input_string)
 all_matches = {}
 
+do_matches_count = 0
 for match in do_matches:
+    do_matches_count += 1
     matched_text = match.group(0)
     start_index = match.start()
     end_index = match.end()
     all_matches[start_index] = matched_text
-    # print(f"{matched_text}|{start_index}")
-        
-# print("Dont Matches")
+logging.info(f"Found {do_matches_count} 'do()' match(es)")
+      
+dont_matches_count = 0
 for match in dont_matches:
+    dont_matches_count += 1
     matched_text = match.group(0)
     start_index = match.start()
     end_index = match.end()
     all_matches[start_index] = matched_text
-    # print(f"{matched_text}|{start_index}")
+    logging.debug(f"{matched_text}|{start_index}")
+logging.info(f"Found {dont_matches_count} 'don't()' match(es)")
 
-# print("mul Matches")
+mul_matches_count = 0
 for match in mul_matches:
+    mul_matches_count += 1
     matched_text = f"{match.group(1)},{match.group(2)}"
     start_index = match.start()
     end_index = match.end()
     all_matches[start_index] = matched_text
-    # print(f"{matched_text}|{start_index}")
+    logging.debug(f"{matched_text}|{start_index}")
+logging.info(f"Found {mul_matches_count} 'mul(x,y)' match(es)")
 
 all_matches_sorted = dict(sorted(all_matches.items()))
+logging.info(f"Sorted all match(es)")
+
 
 do_something = True
 total=0
 for key,value in all_matches_sorted.items():
     if value == "don't()":
         do_something = False
-        print(f"Turned off Do!")
+        logging.debug(f"Turned off Do!")
     elif value == "do()":
         do_something = True
-        print(f"Turned on Do!")
+        logging.debug(f"Turned on Do!")
     else: 
         if do_something:
-            print(f"do something was true so adding {value}")
+            logging.debug(f"do something was true so adding {value}")
             numbers = list(map(int, value.split(',')))
             product = numbers[0] * numbers[1]
             prev_total = total
             total += product
-            print(f"Prev total: {prev_total} and after product of {product} is now {total}")
+            logging.debug(f"Prev total: {prev_total} and after product of {product} is now {total}")
 
         else: 
-            print(f"do somethingw as false so skipping {value}")
+            logging.debug(f"do somethingw as false so skipping {value}")
 
-print(f"Compeleted, total is {total}")
+logging.info(f"Compeleted, total is {total}")
