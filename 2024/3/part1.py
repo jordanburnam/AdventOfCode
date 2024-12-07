@@ -14,7 +14,7 @@ logging.basicConfig(
 
 
 input_file_path='2024/3/input/data'
-# input_file_path='2024/3/input/example'
+input_file_path='2024/3/input/example'
 
 logging.info(f"Reading file at '{input_file_path}'")
 
